@@ -57,24 +57,11 @@ public class TaskController {
 
         Tooltip tooltip=new Tooltip(descriptionTextArea.getText());
 
-        task.setTooltip(tooltip);
-
         taskTodoListView.getItems().add(task);
 
         dialogStage.close();
 
         //change cells color
-        taskTodoListView.setCellFactory(lv -> new ListCell<Task>() {
-            @Override
-            protected void updateItem(Task item, boolean empty) {
-                if(item==null)
-                    return;
-
-                super.updateItem(item, empty);
-                setText(empty ? null : item.getTitle());
-                setTextFill(item.getTaskColor());
-            }
-        });
     }
 
     void setObservableLists(ObservableList<Task> data) {

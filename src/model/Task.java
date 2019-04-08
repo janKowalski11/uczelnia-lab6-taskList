@@ -2,7 +2,6 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ public class Task {
     private LocalDate expDate;
     private Priority priority;
 
-    private Tooltip tooltip;
 
     //returns color based on priority
     public Color getTaskColor( ) {
@@ -76,13 +74,5 @@ public class Task {
 
     public LocalDate getExpDate() {
         return expDate;
-    }
-
-    public Tooltip getTooltip() {
-        return tooltip;
-    }
-
-    public void setTooltip(Tooltip tooltip) {
-        this.tooltip = tooltip;
     }
 }

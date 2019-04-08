@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import model.Task;
 
@@ -27,6 +29,7 @@ public class MainController {
     public MainController() {
 
         taskTodoListView = new ListView<>();
+
 
 
     }
@@ -52,6 +55,22 @@ public class MainController {
             taskController.setObservableLists(taskTodoObservableList);
             taskTodoListView.setItems(taskTodoObservableList);
             taskController.setTaskTodoListView(taskTodoListView);
+
+
+            //todo : put this code somewhere ? where can i put that
+            taskTodoListView.setCellFactory(lv -> new ListCell<Task>() {
+                @Override
+                protected void updateItem(Task item, boolean empty) {
+                    if(item==null)
+                        return;
+
+                    super.updateItem(item, empty);
+                    setText(empty ? null : item.getTitle());
+                    setTextFill(item.getTaskColor());
+                    setTooltip(new Tooltip(item.getDescription()));
+                }
+            });
+
 
 
             taskStage.show();
