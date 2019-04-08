@@ -18,7 +18,7 @@ public class TaskController {
     private Stage dialogStage;
     private ObservableList<Task> taskFeaturesList;
 
-    private ObservableList<Priority> priorityComboBoxList ;
+    private ObservableList<Priority> priorityValuesList;
 
     @FXML
     private ComboBox priorityComboBox;
@@ -36,7 +36,7 @@ public class TaskController {
 
     public TaskController() {
         taskFeaturesList = FXCollections.observableArrayList();
-        priorityComboBoxList = FXCollections.observableArrayList(Priority.values());
+        priorityValuesList = FXCollections.observableArrayList(Priority.values());
 
     }
 
@@ -44,7 +44,7 @@ public class TaskController {
     public void initialize() {
 
         priorityComboBox.setValue(Priority.LOW);
-        priorityComboBox.setItems(priorityComboBoxList);
+        priorityComboBox.setItems(priorityValuesList);
     }
 
     @FXML
@@ -54,7 +54,9 @@ public class TaskController {
         task.setDescription(descriptionTextArea.getText());
         task.setExpDate(expDateField.getValue());
 
-        //task.setPriority(priorityComboBox.getV);
+        Priority priority = (Priority) priorityComboBox.getValue();
+        task.setPriority(priority);
+
         taskFeaturesList.add(task);
 
         dialogStage.close();
