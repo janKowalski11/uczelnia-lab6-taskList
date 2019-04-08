@@ -7,10 +7,16 @@ import java.time.LocalDate;
 
 
 public class Task {
+
     private StringProperty title = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private LocalDate expDate;
     private Priority priority;
+
+    @Override
+    public String toString() {
+        return title.getValue();
+    }
 
     public void setExpDate(LocalDate expDate) {
         this.expDate = expDate;
@@ -28,10 +34,6 @@ public class Task {
         this.priority = priority;
     }
 
-    @Override
-    public String toString() {
-        return title.getValue();
-    }
 
     public StringProperty titleProperty() {
         return title;

@@ -14,27 +14,40 @@ import model.Task;
 
 public class MainController {
 
-    private  ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
+
+    private Scene addTaskScene;
+    private Stage taskStage;
+    private ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
+
     @FXML
     private ListView<Task> taskListView;
+
+    public MainController() {
+    }
+
     @FXML
-    private void onAddNewTaskButtonClick(){
-        try{
+    private void onAddNewTaskButtonClick() {
+        try {
+
+            //todo Extract possible variables
+            //why this declaration of loader must be here? when loader set as final variable then throws exceptions XD
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/add_task_view.fxml"));
-            Scene scene = new Scene(loader.load(), 474, 356);
-            Stage stage = new Stage();
-            stage.setTitle("Add new task");
-            stage.setScene(scene);
+
+            addTaskScene = new Scene(loader.load(), 474, 356);
+            taskStage = new Stage();
+            taskStage.setTitle("Add new task");
+            taskStage.setScene(addTaskScene);
 
             TaskController taskController = loader.getController();
-            taskController.setDialogStage(stage);
+            taskController.setDialogStage(taskStage);
+            //inject lists
             taskController.setObservableLists(taskObservableList);
             taskListView.setItems(taskObservableList);
 
-            stage.show();
+            taskStage.show();
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
             System.out.println("Nie mozna  otworzyc okna");
         }
@@ -42,13 +55,13 @@ public class MainController {
     }
 
     @FXML
-    private void onCloseItemClick(){
+    private void onCloseItemClick() {
         Platform.exit();
         System.exit(0);
     }
 
     @FXML
-    private void onAboutItemClick(){
+    private void onAboutItemClick() {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About the author");
@@ -57,7 +70,6 @@ public class MainController {
 
         alert.showAndWait();
     }
-
 
 
 }

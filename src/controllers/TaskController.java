@@ -16,9 +16,9 @@ import model.Task;
 public class TaskController {
 
     private Stage dialogStage;
-    private ObservableList<Task> taskFeaturesList = FXCollections.observableArrayList();
+    private ObservableList<Task> taskFeaturesList;
 
-    private ObservableList<Priority> priorityComboBoxList = FXCollections.observableArrayList(Priority.values());
+    private ObservableList<Priority> priorityComboBoxList ;
 
     @FXML
     private ComboBox priorityComboBox;
@@ -34,6 +34,12 @@ public class TaskController {
 
     private Task task = new Task();
 
+    public TaskController() {
+        taskFeaturesList = FXCollections.observableArrayList();
+        priorityComboBoxList = FXCollections.observableArrayList(Priority.values());
+
+    }
+
     @FXML
     public void initialize() {
 
@@ -47,7 +53,8 @@ public class TaskController {
         task.setTitle(titleTextField.getText());
         task.setDescription(descriptionTextArea.getText());
         task.setExpDate(expDateField.getValue());
-        //task.setPriority(priorityComboBox.);
+
+        //task.setPriority(priorityComboBox.getV);
         taskFeaturesList.add(task);
 
         dialogStage.close();
