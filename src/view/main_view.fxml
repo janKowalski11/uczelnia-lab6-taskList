@@ -35,7 +35,7 @@
             <VBox prefHeight="279.0" prefWidth="178.0">
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="22.0" prefWidth="165.0" text="TO DO" />
-                  <ListView fx:id="taskTodoListView" prefHeight="258.0" prefWidth="177.0" />
+                  <ListView fx:id="taskTodoListView" onDragDetected="#onDragDetected" prefHeight="258.0" prefWidth="177.0" />
                </children>
             </VBox>
          </content></ScrollPane>
@@ -49,7 +49,7 @@
             <VBox prefHeight="279.0" prefWidth="178.0">
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="24.0" prefWidth="178.0" text="DONE" />
-                  <ListView prefHeight="259.0" prefWidth="178.0" />
+                  <ListView fx:id="doneListView" onDragDetected="#onDragDetected" prefHeight="259.0" prefWidth="178.0" />
                </children></VBox>
          </content></ScrollPane>
    </right>
@@ -62,7 +62,7 @@
             <VBox prefHeight="279.0" prefWidth="178.0">
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="27.0" prefWidth="166.0" text="IN PROGRESS" />
-                  <ListView prefHeight="263.0" prefWidth="149.0" />
+                  <ListView fx:id="inprogressListView" onDragDetected="#onDragDetected" onMouseEntered="#onDragDroppedInprocessList" prefHeight="263.0" prefWidth="149.0" />
                </children>
             </VBox>
          </content></ScrollPane>

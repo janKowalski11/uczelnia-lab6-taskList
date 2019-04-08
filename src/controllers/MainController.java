@@ -4,6 +4,7 @@ package controllers;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,20 +19,26 @@ import java.io.IOException;
 
 public class MainController {
 
-
+    private ObservableList<Task> selectedTasks = FXCollections.observableArrayList();
     private Scene addTaskScene;
     private Stage taskStage;
+
     private ObservableList<Task> taskTodoObservableList = FXCollections.observableArrayList();
+    private ObservableList<Task> taskInprocessObservableList = FXCollections.observableArrayList();
+    private ObservableList<Task> taskDoneObservableList = FXCollections.observableArrayList();
 
     @FXML
     private ListView<Task> taskTodoListView;
 
+    @FXML
+    private ListView<Task> inprogressListView;
+
+    @FXML
+    private ListView<Task> doneListView;
+
+
     public MainController() {
-
         taskTodoListView = new ListView<>();
-
-
-
     }
 
     @FXML
@@ -48,6 +55,9 @@ public class MainController {
             taskStage.setTitle("Add new task");
             taskStage.setScene(addTaskScene);
 
+            inprogressListView.setItems(taskInprocessObservableList);
+            doneListView.setItems(taskDoneObservableList);
+
             TaskController taskController = loader.getController();
             taskController.setDialogStage(taskStage);
 
@@ -61,16 +71,15 @@ public class MainController {
             taskTodoListView.setCellFactory(lv -> new ListCell<Task>() {
                 @Override
                 protected void updateItem(Task item, boolean empty) {
-                    if(item==null)
+                    if (item == null)
                         return;
 
                     super.updateItem(item, empty);
                     setText(empty ? null : item.getTitle());
-                    setTextFill(item.getTaskColor());
-                    setTooltip(new Tooltip(item.getDescription()));
+                    setTextFill(item.getTaskColor()); //adds coloring
+                    setTooltip(new Tooltip(item.getDescription())); //adds tooltip
                 }
             });
-
 
 
             taskStage.show();
@@ -100,5 +109,36 @@ public class MainController {
         alert.showAndWait();
     }
 
+    @FXML
+    private void onDragDetected(Event event) {
+        //copy selected Items
+        ObservableList<Task> selectedItemsTmp = taskTodoListView.getSelectionModel().getSelectedItems();
+        selectedItemsTmp.forEach(task -> {
+            //clone
+            Task tmpTask = new Task();
+            tmpTask.setTitle(task.getTitle());
+            tmpTask.setDescription(task.getDescription());
+            tmpTask.setExpDate(task.getExpDate());
+            tmpTask.setPriority(task.getPriority());
+
+            selectedTasks.add(tmpTask);
+        });
+
+        selectedItemsTmp.forEach(task-> taskTodoListView.getItems().remove(task));
+
+
+    }
+
+
+
+
+    @FXML
+    private void onDragDroppedInprocessList(Event event) {
+        selectedTasks.stream().forEach(task -> {
+            inprogressListView.getItems().add(task);
+        });
+        selectedTasks = FXCollections.observableArrayList();
+
+    }
 
 }
