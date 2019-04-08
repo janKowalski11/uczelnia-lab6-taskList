@@ -1,13 +1,16 @@
-package controller;
+package controllers;
 
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Priority;
 import model.Task;
@@ -16,16 +19,15 @@ import model.Task;
 public class AddTaskController {
 
     private Stage dialogStage;
-    private  ObservableList<Task> taskList = FXCollections.observableArrayList();
+    private  ObservableList<Task> taskFeaturesList = FXCollections.observableArrayList();
 
     public void setData(ObservableList<Task> data) {
-        this.taskList = data ;
+        this.taskFeaturesList= data ;
     }
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-    //priorities
     private ObservableList<Priority> priorityComboBoxList = FXCollections.observableArrayList(Priority.values());
 
     @FXML
@@ -56,7 +58,7 @@ public class AddTaskController {
         task.setDescription(descriptionTextArea.getText());
         task.setExpDate(expDateField.getValue());
         //task.setPriority(priorityComboBox.);
-        taskList.add(task);
+        taskFeaturesList.add(task);
 
         dialogStage.close();
 
