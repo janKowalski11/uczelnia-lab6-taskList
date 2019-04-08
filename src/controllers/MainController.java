@@ -14,11 +14,11 @@ import model.Task;
 
 public class MainController {
 
-    private  ObservableList<Task> listItems = FXCollections.observableArrayList();
+    private  ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
     @FXML
-    private ListView<Task> todolist;
+    private ListView<Task> taskListView;
     @FXML
-    private void handleButtonAction(){
+    private void onAddNewTaskButtonClick(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/add_task_view.fxml"));
@@ -26,34 +26,34 @@ public class MainController {
             Stage stage = new Stage();
             stage.setTitle("Add new task");
             stage.setScene(scene);
-            AddTaskController taskController = loader.getController();
+
+            TaskController taskController = loader.getController();
             taskController.setDialogStage(stage);
-            taskController.setData(listItems);
-            todolist.setItems(listItems);
+            taskController.setObservableLists(taskObservableList);
+            taskListView.setItems(taskObservableList);
 
             stage.show();
-
-
         }
         catch (Exception e){
-            System.out.println("Nie da rady otworzyc okna");
+            e.printStackTrace();
+            System.out.println("Nie mozna  otworzyc okna");
         }
 
     }
 
     @FXML
-    private void handleCloseAction(){
+    private void onCloseItemClick(){
         Platform.exit();
         System.exit(0);
     }
 
     @FXML
-    private void handleAboutAction(){
+    private void onAboutItemClick(){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About the author");
         alert.setHeaderText(null);
-        alert.setContentText("Created by Michał Słomski \n Version 1.0");
+        alert.setContentText("Created by Marcin Pływacz \n Version 0.1");
 
         alert.showAndWait();
     }
