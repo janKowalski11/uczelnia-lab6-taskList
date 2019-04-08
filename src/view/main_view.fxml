@@ -35,7 +35,7 @@
             <VBox prefHeight="279.0" prefWidth="178.0">
                <children>
                   <Label alignment="TOP_CENTER" prefHeight="22.0" prefWidth="165.0" text="TO DO" />
-                  <ListView fx:id="taskListView" prefHeight="258.0" prefWidth="177.0" />
+                  <ListView fx:id="taskTodoListView" prefHeight="258.0" prefWidth="177.0" />
                </children>
             </VBox>
          </content></ScrollPane>

@@ -12,17 +12,23 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.Task;
 
+import java.io.IOException;
+
 public class MainController {
 
 
     private Scene addTaskScene;
     private Stage taskStage;
-    private ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
+    private ObservableList<Task> taskTodoObservableList = FXCollections.observableArrayList();
 
     @FXML
-    private ListView<Task> taskListView;
+    private ListView<Task> taskTodoListView;
 
     public MainController() {
+
+        taskTodoListView = new ListView<>();
+
+
     }
 
     @FXML
@@ -41,18 +47,22 @@ public class MainController {
 
             TaskController taskController = loader.getController();
             taskController.setDialogStage(taskStage);
+
             //inject lists
-            taskController.setObservableLists(taskObservableList);
-            taskListView.setItems(taskObservableList);
+            taskController.setObservableLists(taskTodoObservableList);
+            taskTodoListView.setItems(taskTodoObservableList);
+            taskController.setTaskTodoListView(taskTodoListView);
+
 
             taskStage.show();
         }
-        catch (Exception e) {
+        catch (IOException e) {
             e.printStackTrace();
             System.out.println("Nie mozna  otworzyc okna");
         }
 
     }
+
 
     @FXML
     private void onCloseItemClick() {

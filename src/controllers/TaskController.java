@@ -4,10 +4,7 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Priority;
 import model.Task;
@@ -16,7 +13,8 @@ import model.Task;
 public class TaskController {
 
     private Stage dialogStage;
-    private ObservableList<Task> taskFeaturesList;
+    private ObservableList<Task> taskTodoObservableList;
+    private ListView<Task> taskTodoListView;
 
     private ObservableList<Priority> priorityValuesList;
 
@@ -35,7 +33,7 @@ public class TaskController {
     private Task task = new Task();
 
     public TaskController() {
-        taskFeaturesList = FXCollections.observableArrayList();
+        taskTodoObservableList = FXCollections.observableArrayList();
         priorityValuesList = FXCollections.observableArrayList(Priority.values());
 
     }
@@ -57,13 +55,34 @@ public class TaskController {
         Priority priority = (Priority) priorityComboBox.getValue();
         task.setPriority(priority);
 
-        taskFeaturesList.add(task);
+        Tooltip tooltip=new Tooltip(descriptionTextArea.getText());
+
+        task.setTooltip(tooltip);
+
+        taskTodoListView.getItems().add(task);
 
         dialogStage.close();
+
+        //change cells color
+        taskTodoListView.setCellFactory(lv -> new ListCell<Task>() {
+            @Override
+            protected void updateItem(Task item, boolean empty) {
+                if(item==null)
+                    return;
+
+                super.updateItem(item, empty);
+                setText(empty ? null : item.getTitle());
+                setTextFill(item.getTaskColor());
+            }
+        });
     }
 
     void setObservableLists(ObservableList<Task> data) {
-        this.taskFeaturesList = data;
+        this.taskTodoObservableList = data;
+    }
+
+    void setTaskTodoListView(ListView<Task> taskTodoListView) {
+        this.taskTodoListView = taskTodoListView;
     }
 
     void setDialogStage(Stage dialogStage) {
